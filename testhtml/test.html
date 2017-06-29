@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<style type="text/css">
+		button{
+			width: 6rem;
+			height: 1rem;
+		}
+	</style>
+</head>
+<body>
+<input type="" name="" id="i1">
+<input type="" name="" id='i2'>
+<button type="submit" id="btnLogin">login</button>
+<button type="submit" id="btnloginOut">loginOut</button>
+<script src="https://cdn.bootcss.com/socket.io/2.0.3/socket.io.js"></script>
+<script>
+(function () {
+	const nameInput = document.getElementById('i1');
+	const surNameInput = document.getElementById('i2');
+	const btnLogin = document.getElementById('btnLogin');
+	const btnloginOut = document.getElementById('btnloginOut');
+	const socket = io.connect('http://localhost:8080');
+
+	socket.on('getUserList', function (data) {
+		console.log(data);
+	});
+
+	btnLogin.addEventListener('click',() =>{
+		socket.emit('userLogin', { 
+			name:  nameInput.value,
+			surname:  surNameInput.value
+		});
+	})
+
+	btnloginOut.addEventListener('click',() =>{
+		socket.emit('userLoginOut', { 
+			name:  nameInput.value,
+			surname:  surNameInput.value
+		});
+	})
+
+})()
+  
+</script>
+</body>
+</html>
